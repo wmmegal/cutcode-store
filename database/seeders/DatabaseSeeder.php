@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Storage::createDirectory('brands');
+        Storage::createDirectory('products');
+
         Brand::factory(20)->create();
 
         Category::factory(10)
