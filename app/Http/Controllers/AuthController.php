@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\RegisterUserContract;
 use App\Http\Requests\PasswordEmailRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\SignInFormRequest;
@@ -11,6 +12,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Password;
 use Laravel\Socialite\Facades\Socialite;
+use function Pest\Laravel\get;
 
 class AuthController extends Controller
 {
@@ -21,7 +23,7 @@ class AuthController extends Controller
 
     public function signIn(SignInFormRequest $request)
     {
-        if (!auth()->attempt($request->validated())) {
+        if ( ! auth()->attempt($request->validated())) {
             return back()->withErrors([
                 'email' => 'Неверный e-mail или пароль',
             ])->onlyInput('email');
@@ -38,16 +40,13 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function signUp(SignUpRequest $request)
+    public function signUp(SignUpRequest $request, RegisterUserContract $action)
     {
-        $user = User::create([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => bcrypt($request->get('password')),
-        ]);
-
-        event(new Registered($user));
-        auth()->login($user);
+        $action(
+            $request->get('name'),
+            $request->get('email'),
+            $request->get('password')
+        );
 
         return redirect()->intended(route('home'));
     }
@@ -74,9 +73,13 @@ class AuthController extends Controller
             $request->only('email')
         );
 
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with(['message' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
+        if ($status === Password::RESET_LINK_SENT) {
+            flash()->info(__($status));
+
+            return back();
+        }
+
+        return back()->withErrors(['email' => __($status)]);
     }
 
     public function resetPassword($token)
@@ -84,7 +87,8 @@ class AuthController extends Controller
         return view('auth.reset-password', ['token' => $token]);
     }
 
-    function passwordUpdate (PasswordUpdateRequest $request) {
+    function passwordUpdate(PasswordUpdateRequest $request)
+    {
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function (User $user, string $password) {
@@ -98,9 +102,13 @@ class AuthController extends Controller
             }
         );
 
-        return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('message', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+        if ($status === Password::PASSWORD_RESET) {
+            flash()->info(__($status));
+
+            return redirect()->route('login');
+        }
+
+        return back()->withErrors(['email' => [__($status)]]);
     }
 
     public function github()
@@ -115,8 +123,8 @@ class AuthController extends Controller
         $user = User::updateOrCreate([
             'github_id' => $githubUser->id,
         ], [
-            'name' => $githubUser->name ?? '123',
-            'email' => $githubUser->email,
+            'name'     => $githubUser->name ?? '123',
+            'email'    => $githubUser->email,
             'password' => bcrypt('password')
         ]);
 

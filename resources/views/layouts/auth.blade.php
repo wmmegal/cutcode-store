@@ -10,10 +10,12 @@
 </head>
 <body>
 <main class="md:min-h-screen md:flex md:items-center md:justify-center py-16 lg:py-20">
+    @if($message = flash()->get())
+        <div class="{{ $message->class() }} p-5">
+            {{ $message->message() }}
+        </div>
+    @endif
     <div class="container">
-        @if(session()->has('message'))
-            {{ session('message') }}
-        @endif
         <!-- Page heading -->
         <div class="text-center">
             <a href="{{ route('home') }}" class="inline-block" rel="home">

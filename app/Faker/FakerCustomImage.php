@@ -8,21 +8,19 @@ use Illuminate\Support\Str;
 
 class FakerCustomImage extends Base
 {
-    public function customImage($dir = '')
+    public function customImage(string $fixturesDir, string $storageDir)
     {
-        if ( ! Storage::exists($dir)) {
-            Storage::createDirectory($dir);
+        if ( ! Storage::exists($storageDir)) {
+            Storage::createDirectory($storageDir);
         }
 
-        $from = base_path('tests/Fixtures/images/products/').rand(1, 9).'.jpg';
-        $name = '/storage/images/'.$dir.'/'.Str::random(6).'.jpg';
-
-        Storage::put(
-            $name,
-            $from
+        $file = $this->generator->file(
+            base_path("tests/Fixtures/images/$fixturesDir"),
+            Storage::path($storageDir),
+            false
         );
 
-        return $name;
+        return '/storage/'.trim($storageDir, '/').'/'.$file;
     }
 
 }
