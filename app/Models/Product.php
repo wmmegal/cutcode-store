@@ -27,6 +27,12 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function scopeOnHome()
+    {
+        return $this->where('on_home_page', true)
+            ->orderBy('sorting');
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);

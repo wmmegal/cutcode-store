@@ -21,4 +21,10 @@ class Category extends Model
     {
         return $this->belongsToMany(Product::class);
     }
+
+    public function scopeOnHome()
+    {
+        return $this->where('on_home_page', true)
+                    ->orderBy('sorting');
+    }
 }
