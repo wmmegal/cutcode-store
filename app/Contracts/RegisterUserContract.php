@@ -2,7 +2,9 @@
 
 namespace App\Contracts;
 
+use App\DTOs\NewUserDto;
+
 interface RegisterUserContract
 {
-    public function __invoke(string $name, string $email, string $password): void;
+    public function __invoke(NewUserDto $data): void;
 }

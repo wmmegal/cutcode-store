@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\Models\HasSlug;
+use App\Models\QueryBuilders\BrandQueryBuilder;
+use App\Support\Traits\Models\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,17 +16,18 @@ class Brand extends Model
     protected $fillable = [
         'slug',
         'title',
-        'thumbnail'
+        'thumbnail',
+        'on_home_page',
+        'sorting'
     ];
+
+    public function newEloquentBuilder($query): BrandQueryBuilder
+    {
+        return new BrandQueryBuilder($query);
+    }
 
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
-    }
-
-    public function scopeOnHome()
-    {
-        return $this->where('on_home_page', true)
-                    ->orderBy('sorting');
     }
 }

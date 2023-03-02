@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\Models\HasSlug;
+use App\Models\QueryBuilders\CategoryQueryBuilder;
+use App\Support\Traits\Models\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,17 +15,18 @@ class Category extends Model
 
     public $fillable = [
         'title',
-        'slug'
+        'slug',
+        'on_home_page',
+        'sorting'
     ];
+
+    public function newEloquentBuilder($query): CategoryQueryBuilder
+    {
+        return new CategoryQueryBuilder($query);
+    }
 
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
-    }
-
-    public function scopeOnHome()
-    {
-        return $this->where('on_home_page', true)
-                    ->orderBy('sorting');
     }
 }

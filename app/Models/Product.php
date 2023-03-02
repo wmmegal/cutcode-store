@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-use App\Traits\Models\HasSlug;
+use App\Casts\PriceCast;
+use App\Models\QueryBuilders\ProductQueryBuilder;
+use App\Support\Traits\Models\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,19 +20,23 @@ class Product extends Model
         'slug',
         'brand_id',
         'price',
-        'thumbnail'
+        'thumbnail',
+        'on_home_page',
+        'sorting'
     ];
 
+    protected $casts = [
+        'price' => PriceCast::class
+    ];
+
+    public function newEloquentBuilder($query): ProductQueryBuilder
+    {
+        return new ProductQueryBuilder($query);
+    }
 
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
-    }
-
-    public function scopeOnHome()
-    {
-        return $this->where('on_home_page', true)
-            ->orderBy('sorting');
     }
 
     public function categories(): BelongsToMany

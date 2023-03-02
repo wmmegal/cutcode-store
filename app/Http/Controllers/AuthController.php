@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\RegisterUserContract;
+use App\DTOs\NewUserDto;
 use App\Http\Requests\PasswordEmailRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\SignInFormRequest;
@@ -42,11 +43,7 @@ class AuthController extends Controller
 
     public function signUp(SignUpRequest $request, RegisterUserContract $action)
     {
-        $action(
-            $request->get('name'),
-            $request->get('email'),
-            $request->get('password')
-        );
+        $action(NewUserDto::fromRequest($request));
 
         return redirect()->intended(route('home'));
     }
