@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Password;
@@ -37,6 +38,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('/catalog/{category:slug?}', CatalogController::class)->name('catalog');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();

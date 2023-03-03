@@ -8,7 +8,6 @@ use App\Models\ViewModels\ProductViewModel;
 
 class HomeController extends Controller
 {
-
     public function __invoke()
     {
         $categories = CategoryViewModel::make()->onHome();
