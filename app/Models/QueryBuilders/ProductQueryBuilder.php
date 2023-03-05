@@ -41,7 +41,7 @@ class ProductQueryBuilder extends Builder
     public function category($category)
     {
         return $this->when($category->exists, function (Builder $q) use ($category) {
-            $q->whereRelation('categories', 'id', '=', $category->id);
+            $q->whereRelation('categories', 'categories.id', '=', $category->id);
         });
     }
 
