@@ -197,7 +197,8 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         \App\Providers\ViewServiceProvider::class,
 
-        \App\Providers\ActionsServiceProvider::class
+        \App\Providers\ActionsServiceProvider::class,
+        \App\Providers\CatalogServiceProvider::class
     ],
 
     /*

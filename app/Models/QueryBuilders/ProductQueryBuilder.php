@@ -3,6 +3,7 @@
 namespace App\Models\QueryBuilders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pipeline\Pipeline;
 
 class ProductQueryBuilder extends Builder
 {
@@ -13,17 +14,17 @@ class ProductQueryBuilder extends Builder
                     ->limit(8);
     }
 
-    public function filtered()
-    {
-        return $this->when(request('filters.brand'), function (Builder $q) {
-            $q->whereIn('brand_id', request('filters.brand'));
-        })->when(request('filters.price'), function (Builder $q) {
-            $q->whereBetween('price', [
-                request('filters.price.from', 0) * 100,
-                request('filters.price.to', 100000) * 100,
-            ]);
-        });
-    }
+//    public function filtered()
+//    {
+//        $query = $this->newQuery();
+//        $query = app(Pipeline::class)
+//            ->send($this)
+//            ->through(filters())
+//            ->thenReturn();
+//
+//
+//        return $this;
+//    }
 
     public function sorted()
     {

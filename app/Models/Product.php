@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Casts\PriceCast;
 use App\Models\QueryBuilders\ProductQueryBuilder;
 use App\Support\Traits\Models\HasSlug;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Pipeline\Pipeline;
 
 class Product extends Model
 {
@@ -33,6 +35,14 @@ class Product extends Model
     public function newEloquentBuilder($query): ProductQueryBuilder
     {
         return new ProductQueryBuilder($query);
+    }
+
+    public function scopeFiltered(Builder $query)
+    {
+        return app(Pipeline::class)
+            ->send($query)
+            ->through(filters())
+            ->thenReturn();
     }
 
     public function brand(): BelongsTo

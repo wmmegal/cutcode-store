@@ -11,9 +11,6 @@ class CatalogController extends Controller
 {
     public function __invoke(?Category $category)
     {
-        $brands = Brand::has('products')
-                       ->get();
-
         $categories = Category::has('products')
                               ->get();
 
@@ -29,7 +26,6 @@ class CatalogController extends Controller
         return view('catalog.index', compact([
             'products',
             'categories',
-            'brands',
             'category'
         ]));
     }
