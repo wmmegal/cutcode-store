@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::controller(AuthController::class)->group(function () {
 Route::get('/', HomeController::class)->name('home');
 
 Route::get('/catalog/{category:slug?}', CatalogController::class)->name('catalog');
+
+Route::get('/product/{product:slug}', ProductController::class)->name('product');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
