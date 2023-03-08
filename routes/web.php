@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -19,6 +20,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', HomeController::class)->name('home');
+
+Route::get('/catalog/{category:slug?}', CatalogController::class)
+     ->middleware([CatalogViewMiddleware::class])
+     ->name('catalog');
+
+Route::get('/product/{product:slug}', ProductController::class)->name('product');
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
@@ -39,16 +48,20 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/auth/socialite/github/callback', 'githubCallback')->name('socialite.github.callback');
 });
 
-Route::get('/', HomeController::class)->name('home');
-
-Route::get('/catalog/{category:slug?}', CatalogController::class)
-     ->middleware([CatalogViewMiddleware::class])
-     ->name('catalog');
-
-Route::get('/product/{product:slug}', ProductController::class)->name('product');
-
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
     return redirect('/');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::controller(CartController::class)
+     ->prefix('cart')
+     ->group(function () {
+         Route::get('/', 'index')->name('cart');
+         Route::post('/{product}', 'add')->name('cart.add');
+         Route::post('/{item}/quantity', 'quantity')->name('cart.quantity');
+         Route::delete('/{item}/delete', 'delete')->name('cart.delete');
+         Route::delete('/truncate', 'truncate')->name('cart.truncate');
+     });
+
+

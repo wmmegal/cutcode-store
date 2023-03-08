@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Cart\CartManager;
+use App\Cart\SessinIdentityStorage;
 use App\Faker\FakerCustomImage;
 use App\Http\Kernel;
 use Carbon\CarbonInterval;
@@ -20,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
             $faker->addProvider(new FakerCustomImage($faker));
 
             return $faker;
+        });
+
+        $this->app->singleton(CartManager::class, function () {
+            return new CartManager(new SessinIdentityStorage());
         });
     }
 
