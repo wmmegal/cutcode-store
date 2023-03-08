@@ -7,7 +7,7 @@ use App\Models\CartItem;
 use App\Models\Product;
 use App\ValueObjects\Price;
 use Cache;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class CartManager
@@ -16,6 +16,11 @@ class CartManager
     public function __construct(
         protected IdentityStorageContract $identityStorage
     ) {
+    }
+
+    public static function fake(): void
+    {
+        app()->bind(IdentityStorageContract::class, FakeIdentityStorage::class);
     }
 
     public function instance()
@@ -28,6 +33,12 @@ class CartManager
                        })
                        ->first() ?? false;
         });
+    }
+
+    public function updateSessionId(string $old, string $current): void
+    {
+        Cart::where('storage_id', $old)
+            ->update($this->storedData($current));
     }
 
     public function add(Product $product, int $quantity = 1, array $optionValues = []): Cart
@@ -69,7 +80,10 @@ class CartManager
 
     public function truncate(): void
     {
-        $this->instance()?->delete();
+        if ($this->instance()) {
+            $this->instance()->delete();
+        }
+
         $this->forgetCache();
     }
 
@@ -86,7 +100,11 @@ class CartManager
 
     public function cartItems(): Collection
     {
-        return $this->instance()?->cartItems ?? collect();
+        if ( ! $this->instance()) {
+            return collect();
+        }
+
+        return $this->instance()->cartItems;
     }
 
     public function count()

@@ -18,7 +18,7 @@ class CartController extends Controller
 
     public function add(Product $product): RedirectResponse
     {
-        cart()->add($product, request('quantity'), request('options'));
+        cart()->add($product, request('quantity', 1), request('options', []));
         flash()->info('Товар добавлен в корзину');
 
         return redirect()

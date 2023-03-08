@@ -9,6 +9,7 @@ use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\SignInFormRequest;
 use App\Http\Requests\SignUpRequest;
 use App\Models\User;
+use App\Support\SessionRegenerateRunner;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Password;
@@ -30,7 +31,7 @@ class AuthController extends Controller
             ])->onlyInput('email');
         }
 
-        $request->session()->regenerate();
+        SessionRegenerateRunner::run();
 
         return redirect()->intended(route('home'));
     }
@@ -50,11 +51,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth()->logout();
-
-        request()->session()->invalidate();
-
-        request()->session()->regenerateToken();
+        SessionRegenerateRunner::run(fn() => auth()->logout());
 
         return redirect()->intended(route('home'));
     }
@@ -125,7 +122,7 @@ class AuthController extends Controller
             'password' => bcrypt('password')
         ]);
 
-        auth()->login($user);
+        SessionRegenerateRunner::run(fn() => auth()->login($user));
 
         return redirect()
             ->intended(route('home'));

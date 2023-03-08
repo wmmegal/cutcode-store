@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Cart\CartManager;
+use App\Cart\IdentityStorageContract;
 use App\Cart\SessinIdentityStorage;
 use App\Faker\FakerCustomImage;
 use App\Http\Kernel;
@@ -24,9 +25,8 @@ class AppServiceProvider extends ServiceProvider
             return $faker;
         });
 
-        $this->app->singleton(CartManager::class, function () {
-            return new CartManager(new SessinIdentityStorage());
-        });
+        $this->app->bind(IdentityStorageContract::class, SessinIdentityStorage::class);
+        $this->app->singleton(CartManager::class);
     }
 
     public function boot()

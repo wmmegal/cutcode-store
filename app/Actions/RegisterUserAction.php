@@ -5,6 +5,7 @@ namespace App\Actions;
 use App\Contracts\RegisterUserContract;
 use App\DTOs\NewUserDto;
 use App\Models\User;
+use App\Support\SessionRegenerateRunner;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterUserAction implements RegisterUserContract
@@ -18,6 +19,6 @@ class RegisterUserAction implements RegisterUserContract
         ]);
 
         event(new Registered($user));
-        auth()->login($user);
+        SessionRegenerateRunner::run(fn() => auth()->login($user));
     }
 }
