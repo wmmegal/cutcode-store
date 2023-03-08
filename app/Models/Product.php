@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\PriceCast;
+use App\Jobs\ProductJsonProperties;
 use App\Models\QueryBuilders\ProductQueryBuilder;
 use App\Support\Traits\Models\HasSlug;
 use Illuminate\Contracts\Database\Query\Builder;
@@ -25,24 +26,29 @@ class Product extends Model
         'thumbnail',
         'on_home_page',
         'sorting',
-        'text'
+        'text',
+        'json_properties'
     ];
 
     protected $casts = [
-        'price' => PriceCast::class
+        'price'           => PriceCast::class,
+        'json_properties' => 'array'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Product $product) {
+            ProductJsonProperties::dispatch($product)
+                                 ->delay(now()->addSeconds(5));
+        });
+//        static::updated($callback);
+    }
 
     public function newEloquentBuilder($query): ProductQueryBuilder
     {
         return new ProductQueryBuilder($query);
-    }
-
-    public function scopeFiltered(Builder $query)
-    {
-        return app(Pipeline::class)
-            ->send($query)
-            ->through(filters())
-            ->thenReturn();
     }
 
     public function brand(): BelongsTo

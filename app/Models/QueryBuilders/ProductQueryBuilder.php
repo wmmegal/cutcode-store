@@ -14,17 +14,13 @@ class ProductQueryBuilder extends Builder
                     ->limit(8);
     }
 
-//    public function filtered()
-//    {
-//        $query = $this->newQuery();
-//        $query = app(Pipeline::class)
-//            ->send($this)
-//            ->through(filters())
-//            ->thenReturn();
-//
-//
-//        return $this;
-//    }
+    public function filtered()
+    {
+        return app(Pipeline::class)
+            ->send($this)
+            ->through(filters())
+            ->thenReturn();
+    }
 
     public function sorted()
     {
@@ -43,6 +39,13 @@ class ProductQueryBuilder extends Builder
     {
         return $this->when($category->exists, function (Builder $q) use ($category) {
             $q->whereRelation('categories', 'categories.id', '=', $category->id);
+        });
+    }
+
+    public function search()
+    {
+        return $this->when(request('s'), function (Builder $q) {
+            $q->whereFullText(['title', 'text'], request('s'));
         });
     }
 

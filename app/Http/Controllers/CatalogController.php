@@ -14,10 +14,8 @@ class CatalogController extends Controller
         $categories = Category::has('products')
                               ->get();
 
-        $products = Product::select(['id', 'title', 'thumbnail', 'price', 'slug'])
-                           ->when(request('s'), function (Builder $q) {
-                               $q->whereFullText(['title', 'text'], request('s'));
-                           })
+        $products = Product::select(['id', 'title', 'thumbnail', 'price', 'slug', 'json_properties'])
+                           ->search()
                            ->category($category)
                            ->filtered()
                            ->sorted()
