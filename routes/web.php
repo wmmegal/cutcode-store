@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CatalogViewMiddleware;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -46,6 +47,11 @@ Route::controller(AuthController::class)->group(function () {
 
     Route::get('/auth/socialite/github', 'github')->name('socialite.github');
     Route::get('/auth/socialite/github/callback', 'githubCallback')->name('socialite.github.callback');
+});
+
+Route::middleware('web')->group(function () {
+    Route::get('/order', [OrderController::class, 'index'])->name('order');
+    Route::post('/order', [OrderController::class, 'handle'])->name('order.handle');
 });
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
