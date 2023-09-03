@@ -16,10 +16,4 @@ class FlashLivewireMessage extends Component
         $this->class = config("flash.$type");
         $this->message = $text;
     }
-
-    #[On('hideNotify')]
-    public function hide(): void
-    {
-        $this->message = '';
-    }
 }
