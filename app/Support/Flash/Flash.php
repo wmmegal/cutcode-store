@@ -17,7 +17,7 @@ class Flash
     {
         $message = $this->session->get(self::MESSAGE_KEY);
 
-        if ( ! $message) {
+        if (!$message) {
             return null;
         }
 

@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Cart\CartManager;
 use App\Cart\IdentityStorageContract;
-use App\Cart\SessinIdentityStorage;
+use App\Cart\SessionIdentityStorage;
 use App\Faker\FakerCustomImage;
 use App\Http\Kernel;
 use Carbon\CarbonInterval;
@@ -16,7 +16,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(Generator::class, function () {
             $faker = Factory::create();
@@ -25,11 +25,11 @@ class AppServiceProvider extends ServiceProvider
             return $faker;
         });
 
-        $this->app->bind(IdentityStorageContract::class, SessinIdentityStorage::class);
+        $this->app->bind(IdentityStorageContract::class, SessionIdentityStorage::class);
         $this->app->singleton(CartManager::class);
     }
 
-    public function boot()
+    public function boot(): void
     {
         Model::shouldBeStrict(! app()->isProduction());
 

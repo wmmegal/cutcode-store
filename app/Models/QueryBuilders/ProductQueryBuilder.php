@@ -4,6 +4,7 @@ namespace App\Models\QueryBuilders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\URL;
 
 class ProductQueryBuilder extends Builder
 {

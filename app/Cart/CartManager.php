@@ -15,7 +15,8 @@ class CartManager
 
     public function __construct(
         protected IdentityStorageContract $identityStorage
-    ) {
+    )
+    {
     }
 
     public static function fake(): void
@@ -27,11 +28,11 @@ class CartManager
     {
         return Cache::remember($this->cacheKey(), now()->addHour(), function () {
             return Cart::with('cartItems')
-                       ->where('storage_id', $this->identityStorage->get())
-                       ->when(auth()->check(), function (Builder $q) {
-                           $q->orWhere('user_id', auth()->id());
-                       })
-                       ->first() ?? false;
+                ->where('storage_id', $this->identityStorage->get())
+                ->when(auth()->check(), function (Builder $q) {
+                    $q->orWhere('user_id', auth()->id());
+                })
+                ->first() ?? false;
         });
     }
 
@@ -41,21 +42,22 @@ class CartManager
             ->update($this->storedData($current));
     }
 
-    public function add(Product $product, int $quantity = 1, array $optionValues = []): Cart
+    public function add($product_id, int $quantity = 1, array $optionValues = []): Cart
     {
+        $product = Product::find($product_id);
         $cart = Cart::updateOrCreate([
             'storage_id' => $this->identityStorage->get()
         ], $this->storedData($this->identityStorage->get()));
 
         $cartItem = $cart->cartItems()
-                         ->updateOrCreate([
-                             'product_id'           => $product->getKey(),
-                             'string_option_values' => $this->stringedOptionValues($optionValues)
-                         ], [
-                             'price'                => $product->price,
-                             'quantity'             => $quantity,
-                             'string_option_values' => $this->stringedOptionValues($optionValues)
-                         ]);
+            ->updateOrCreate([
+                'product_id' => $product->getKey(),
+                'string_option_values' => $this->stringedOptionValues($optionValues)
+            ], [
+                'price' => $product->price,
+                'quantity' => $quantity,
+                'string_option_values' => $this->stringedOptionValues($optionValues)
+            ]);
 
         $cartItem->optionValues()->sync($optionValues);
         $this->forgetCache();
@@ -89,18 +91,18 @@ class CartManager
 
     public function items(): Collection
     {
-        if ( ! $this->instance()) {
+        if (!$this->instance()) {
             return collect();
         }
 
         return CartItem::with(['product', 'optionValues.option'])
-                       ->whereBelongsTo($this->instance())
-                       ->get();
+            ->whereBelongsTo($this->instance())
+            ->get();
     }
 
     public function cartItems(): Collection
     {
-        if ( ! $this->instance()) {
+        if (!$this->instance()) {
             return collect();
         }
 
@@ -145,7 +147,7 @@ class CartManager
 
     protected function cacheKey(): string
     {
-        return str('cart_'.$this->identityStorage->get())
+        return str('cart_' . $this->identityStorage->get())
             ->slug('_')
             ->value();
     }

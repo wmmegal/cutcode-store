@@ -15,6 +15,7 @@ use App\Processes\DecreaseProductQuantitiesProcess;
 use App\Processes\OrderProcess;
 use DomainException;
 use Illuminate\Http\RedirectResponse;
+use Throwable;
 
 class OrderController extends Controller
 {
@@ -33,6 +34,9 @@ class OrderController extends Controller
         ]);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function handle(OrderFormRequest $request, NewOrderAction $action): RedirectResponse
     {
         $order = $action($request);

@@ -2,7 +2,7 @@
 
 namespace App\Cart;
 
-class SessinIdentityStorage implements IdentityStorageContract
+class SessionIdentityStorage implements IdentityStorageContract
 {
 
     public function get(): string

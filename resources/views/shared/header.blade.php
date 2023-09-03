@@ -65,7 +65,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="inline-flex items-center text-body hover:text-pink">
-                                        <svg class="shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                        <svg class="shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg"
+                                             fill="currentColor"
                                              viewBox="0 0 20 20">
                                             <path
                                                 d="m19.026 7.643-3.233-3.232a.833.833 0 0 0-1.178 1.178l3.232 3.233c.097.098.18.207.25.325-.012 0-.022-.007-.035-.007l-13.07.027a.833.833 0 1 0 0 1.666l13.066-.026c.023 0 .042-.012.064-.014a1.621 1.621 0 0 1-.278.385l-3.232 3.233a.833.833 0 1 0 1.178 1.178l3.233-3.232a3.333 3.333 0 0 0 0-4.714h.003Z"/>
@@ -99,10 +100,7 @@
                         <path
                             d="M26 0a10.4 10.4 0 0 0-10.4 10.4v1.733h-1.439a5.668 5.668 0 0 0-5.668 5.408L7.124 46.055A5.685 5.685 0 0 0 12.792 52h26.416a5.686 5.686 0 0 0 5.668-5.945l-1.37-28.514a5.668 5.668 0 0 0-5.667-5.408H36.4V10.4A10.4 10.4 0 0 0 26 0Zm-6.933 10.4a6.934 6.934 0 0 1 13.866 0v1.733H19.067V10.4Zm-2.843 8.996a1.734 1.734 0 1 1 3.468 0 1.734 1.734 0 0 1-3.468 0Zm16.085 0a1.733 1.733 0 1 1 3.467 0 1.733 1.733 0 0 1-3.467 0Z"/>
                     </svg>
-                    <div class="hidden sm:flex flex-col gap-2">
-                        <span class="text-body text-xxs leading-none">{{ cart()->count() }} шт.</span>
-                        <span class="text-white text-xxs 2xl:text-xs font-bold !leading-none">{{ cart()->total() }}</span>
-                    </div>
+                    <livewire:mini-cart />
                 </a>
                 <button id="burgerMenu" class="flex 2xl:hidden text-white hover:text-pink transition">
                     <span class="sr-only">Меню</span>

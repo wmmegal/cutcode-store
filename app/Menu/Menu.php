@@ -19,7 +19,7 @@ class Menu implements IteratorAggregate, Countable
         $this->items = $items;
     }
 
-    public function all()
+    public function all(): Collection
     {
         return Collection::make($this->items);
     }

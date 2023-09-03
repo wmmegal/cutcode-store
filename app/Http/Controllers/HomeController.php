@@ -12,12 +12,10 @@ class HomeController extends Controller
     {
         $categories = CategoryViewModel::make()->onHome();
         $products   = ProductViewModel::make()->onHome();
-        $brands     = BrandViewModel::make()->onHome();
 
         return view('home', compact([
                 'categories',
                 'products',
-                'brands'
             ]
         ));
     }
