@@ -94,7 +94,7 @@
                         <span class="profile-text relative ml-2 text-white text-xxs md:text-xs font-bold">Войти</span>
                     </a>
                 @endguest
-                <a href="{{ route('cart') }}" class="flex items-center gap-3 text-pink hover:text-white">
+                <a href="{{ route('cart') }}" wire:navigate class="flex items-center gap-3 text-pink hover:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 md:w-7 w-6 md:h-7" fill="currentColor"
                          viewBox="0 0 52 52">
                         <path

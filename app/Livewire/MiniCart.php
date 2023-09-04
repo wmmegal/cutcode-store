@@ -28,6 +28,7 @@ class MiniCart extends Component
         $this->dispatch('checked-product-in-cart', cart()->inCart($productId, $options));
     }
 
+    #[On('count')]
     public function render(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.mini-cart', [

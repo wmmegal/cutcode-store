@@ -45,6 +45,7 @@ class CartManager
     public function add($productId, int $quantity = 1, array $optionValues = []): Cart
     {
         $product = Product::find($productId);
+
         $cart = Cart::updateOrCreate([
             'storage_id' => $this->identityStorage->get()
         ], $this->storedData($this->identityStorage->get()));
@@ -60,6 +61,7 @@ class CartManager
             ]);
 
         $cartItem->optionValues()->sync($optionValues);
+
         $this->forgetCache();
 
         return $cart;
@@ -95,8 +97,8 @@ class CartManager
             return $this->items()->contains('product_id', $productId);
         }
 
-        return $this->items()->contains('product_id', $productId) &&
-            $this->items()->contains('string_option_values', $this->stringedOptionValues($options));
+        return $this->items()->contains('product_id', $productId)
+            && $this->items()->contains('string_option_values', $this->stringedOptionValues($options));
     }
 
     public function items(): Collection

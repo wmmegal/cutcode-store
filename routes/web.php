@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CatalogViewMiddleware;
+use App\Livewire\Cart;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -63,11 +64,13 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::controller(CartController::class)
      ->prefix('cart')
      ->group(function () {
-         Route::get('/', 'index')->name('cart');
          Route::post('/{product}', 'add')->name('cart.add');
          Route::post('/{item}/quantity', 'quantity')->name('cart.quantity');
          Route::delete('/{item}/delete', 'delete')->name('cart.delete');
          Route::delete('/truncate', 'truncate')->name('cart.truncate');
      });
+
+// Livewire
+Route::get('/cart', Cart::class)->name('cart');
 
 
