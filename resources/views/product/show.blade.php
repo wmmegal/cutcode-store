@@ -42,7 +42,9 @@
                         </ul>
 
                         <!-- Add to cart -->
-                        <div class="space-y-8 mt-8" x-data="addToCart">
+                        <div class="space-y-8 mt-8" x-data="addToCart"
+                             x-on:checked-product-in-cart.window="inCart = $event.detail[0];"
+                             x-init="productId = {{ $product->id }}; inCart = {{ cart()->inCart($product->id, $firstOptions) }}">
                             @csrf
                             <div class="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">
                                 @foreach($options as $optionLabel => $values)
@@ -53,6 +55,7 @@
                                         </label>
 
                                         <select name="options[]" id="filter-item-{{ $loop->index }}"
+                                                @change="checkInCart(); getOptions();"
                                                 class="form-select w-full h-12 px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs shadow-transparent outline-0 transition">
                                             @foreach($values as $value)
                                                 <option value="{{ $value->id }}" class="text-dark">
@@ -81,13 +84,16 @@
                                     </button>
                                 </div>
 
-                                <button type="submit" class="!px-6 xs:!px-8 btn btn-pink" x-data
+                                <button type="submit" class="!px-6 xs:!px-8 btn btn-pink" x-show="!inCart"
                                         @click="
                                             getOptions();
-                                            $dispatch('addToCart', { product_id: {{ $product->id }}, quantity: count, options})
-                                        ">Добавить в
-                                    корзину
+                                            $dispatch('addToCart', { productId: {{ $product->id }}, quantity: count, options});
+                                            inCart = true
+                                        ">Add to cart
                                 </button>
+                                <a href="{{ route('cart') }}" class="!px-6 xs:!px-8 btn btn-pink" x-show="inCart">
+                                    View cart
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -101,16 +107,6 @@
                 <article class="text-xs md:text-sm">
                     {!! $product->text !!}
                 </article>
-            </section>
-
-            <!-- Watched products  -->
-            <section class="mt-16 xl:mt-24">
-                <h2 class="mb-12 text-lg lg:text-[42px] font-black">Просмотренные товары</h2>
-                <!-- Products list -->
-                <div
-                    class="products grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-8 lg:gap-y-10 2xl:gap-y-12">
-
-                </div>
             </section>
         </div>
     </main>

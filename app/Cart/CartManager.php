@@ -42,9 +42,9 @@ class CartManager
             ->update($this->storedData($current));
     }
 
-    public function add($product_id, int $quantity = 1, array $optionValues = []): Cart
+    public function add($productId, int $quantity = 1, array $optionValues = []): Cart
     {
-        $product = Product::find($product_id);
+        $product = Product::find($productId);
         $cart = Cart::updateOrCreate([
             'storage_id' => $this->identityStorage->get()
         ], $this->storedData($this->identityStorage->get()));
@@ -87,6 +87,16 @@ class CartManager
         }
 
         $this->forgetCache();
+    }
+
+    public function inCart($productId, $options = []): bool
+    {
+        if (empty($options)) {
+            return $this->items()->contains('product_id', $productId);
+        }
+
+        return $this->items()->contains('product_id', $productId) &&
+            $this->items()->contains('string_option_values', $this->stringedOptionValues($options));
     }
 
     public function items(): Collection

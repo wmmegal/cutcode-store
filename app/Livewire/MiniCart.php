@@ -12,14 +12,20 @@ use Livewire\Component;
 class MiniCart extends Component
 {
     #[On('addToCart')]
-    public function add($product_id, $quantity, array $options = []): void
+    public function add($productId, $quantity, array $options = []): void
     {
-        $product = Product::find($product_id);
+        $product = Product::find($productId);
 
-        cart()->add($product_id, $quantity, $options);
+        cart()->add($productId, $quantity, $options);
 
         $this->dispatch('notify', text: 'Товар ' . $product->title . ' добавлен в корзину')
             ->to(FlashLivewireMessage::class);
+    }
+
+    #[On('checkProductInCart')]
+    public function checkProductInCart($productId, $options = []): void
+    {
+        $this->dispatch('checked-product-in-cart', cart()->inCart($productId, $options));
     }
 
     public function render(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
