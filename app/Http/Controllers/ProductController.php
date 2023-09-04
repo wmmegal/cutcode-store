@@ -14,9 +14,17 @@ class ProductController extends Controller
             return [$item->option->title => $item];
         });
 
+        $firstOptions = collect($options)->reduce(function ($acc, $option) {
+            $acc[] = $option[0]->id;
+
+            return $acc;
+        });
+
+
         return view('product.show', [
             'product' => $product,
-            'options' => $options
+            'options' => $options,
+            'firstOptions' => $firstOptions
         ]);
     }
 }
