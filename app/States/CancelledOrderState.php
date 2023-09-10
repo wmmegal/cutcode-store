@@ -20,6 +20,11 @@ class CancelledOrderState extends OrderState
 
     public function humanValue(): string
     {
-        return 'Отменен';
+        return 'Cancelled';
+    }
+
+    public function bgColor(): string
+    {
+        return 'bg-pink';
     }
 }

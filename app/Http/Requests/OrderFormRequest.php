@@ -24,12 +24,10 @@ class OrderFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer.first_name' => ['required'],
-            'customer.last_name' => ['required'],
+            'customer.name' => ['required'],
             'customer.email' => ['required', 'email:dns'],
             'customer.phone' => ['required'],
             'customer.city' => ['sometimes'],
-            'create_account' => ['bool'],
             'password' => ['required_if:create_account,yes', 'confirmed'],
             'delivery_type_id' => ['required', 'exists:delivery_types,id'],
             'payment_method_id' => ['required', 'exists:payment_methods,id']

@@ -21,6 +21,11 @@ class PendingOrderState extends OrderState
 
     public function humanValue(): string
     {
-        return 'Обработка';
+        return 'Pending';
+    }
+
+    public function bgColor(): string
+    {
+        return 'bg-purple';
     }
 }

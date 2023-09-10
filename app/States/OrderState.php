@@ -16,6 +16,8 @@ abstract class OrderState
     abstract public function canBeChanged(): bool;
     abstract public function value(): string;
     abstract public function humanValue(): string;
+    abstract public function bgColor(): string;
+
     public function transitionTo(OrderState $state): void
     {
         if ( ! $this->canBeChanged()) {

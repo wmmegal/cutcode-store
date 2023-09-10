@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
         $optionValues = OptionValue::factory(10)->create();
         $properties   = Property::factory(10)->create();
 
-
         Category::factory(10)
                 ->has(
                     Product::factory(rand(5, 10))

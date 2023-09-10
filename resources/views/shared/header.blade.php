@@ -11,7 +11,7 @@
                 <form action="{{ route('catalog') }}" method="get" class="hidden lg:flex gap-3">
                     <input name="s" value="{{ request('s') }}" type="search"
                            class="w-full h-12 px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs shadow-transparent outline-0 transition"
-                           placeholder="Поиск..." required>
+                           placeholder="Search..." required>
                     <button type="submit" class="shrink-0 w-12 !h-12 !px-0 btn btn-pink">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 52 52">
                             <path
@@ -26,7 +26,7 @@
                     <div x-data="{dropdownProfile: false}" class="profile relative">
                         <button @click="dropdownProfile = ! dropdownProfile"
                                 class="flex items-center text-white hover:text-pink transition">
-                            <span class="sr-only">Профиль</span>
+                            <span class="sr-only">Profile</span>
                             <span class="hidden md:block font-medium">{{ auth()->user()->name }}</span>
                             <svg class="shrink-0 w-3 h-3 ml-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                  viewBox="0 0 30 16">
@@ -46,18 +46,17 @@
                             x-transition:leave-end="opacity-0"
                             class="absolute z-50 top-0 -right-20 xs:-right-8 sm:right-0 w-[280px] sm:w-[300px] mt-14 p-4 rounded-lg shadow-xl bg-card"
                         >
-                            <h5 class="text-body text-xs">Мой профиль</h5>
+                            <h5 class="text-body text-xs">My profile</h5>
                             <div class="flex items-center mt-3">
-                                <img src="./images/avatar.jpg" class="w-11 h-11 rounded-full" alt="Данил Шуцкий">
-                                <span class="ml-3 text-xs md:text-sm font-bold">Данил Шуцкий</span>
+                                <span class="text-xs md:text-sm font-bold">{{ auth()->user()->name }}</span>
                             </div>
                             <div class="mt-4">
                                 <ul class="space-y-2">
-                                    <li><a href="orders.html" class="text-body hover:text-white text-xs font-medium">Мои
-                                            заказы</a></li>
-                                    <li><a href="edit-profile.html"
-                                           class="text-body hover:text-white text-xs font-medium">Редактировать
-                                            профиль</a></li>
+                                    <li>
+                                        <a href="{{ route('account.orders') }}" class="text-body hover:text-white text-xs font-medium">
+                                           My orders
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="mt-6">
@@ -73,7 +72,7 @@
                                             <path
                                                 d="M5.835 18.333H4.17a2.5 2.5 0 0 1-2.5-2.5V4.167a2.5 2.5 0 0 1 2.5-2.5h1.666a.833.833 0 1 0 0-1.667H4.17A4.172 4.172 0 0 0 .002 4.167v11.666A4.172 4.172 0 0 0 4.169 20h1.666a.833.833 0 1 0 0-1.667Z"/>
                                         </svg>
-                                        <span class="ml-2 font-medium">Выйти</span>
+                                        <span class="ml-2 font-medium">Exit</span>
                                     </button>
                                 </form>
 
@@ -91,7 +90,7 @@
                                 d="M26.749 24.93A13.99 13.99 0 1 0 2 16a13.899 13.899 0 0 0 3.251 8.93l-.02.017c.07.084.15.156.222.239c.09.103.187.2.28.3c.28.304.568.596.87.87c.092.084.187.162.28.242c.32.276.649.538.99.782c.044.03.084.069.128.1v-.012a13.901 13.901 0 0 0 16 0v.012c.044-.031.083-.07.128-.1c.34-.245.67-.506.99-.782c.093-.08.188-.159.28-.242c.302-.275.59-.566.87-.87c.093-.1.189-.197.28-.3c.071-.083.152-.155.222-.24zM16 8a4.5 4.5 0 1 1-4.5 4.5A4.5 4.5 0 0 1 16 8zM8.007 24.93A4.996 4.996 0 0 1 13 20h6a4.996 4.996 0 0 1 4.993 4.93a11.94 11.94 0 0 1-15.986 0z"
                                 fill="currentColor"/>
                         </svg>
-                        <span class="profile-text relative ml-2 text-white text-xxs md:text-xs font-bold">Войти</span>
+                        <span class="profile-text relative ml-2 text-white text-xxs md:text-xs font-bold">Login</span>
                     </a>
                 @endguest
                 <a href="{{ route('cart') }}" wire:navigate class="flex items-center gap-3 text-pink hover:text-white">
@@ -103,7 +102,7 @@
                     <livewire:mini-cart />
                 </a>
                 <button id="burgerMenu" class="flex 2xl:hidden text-white hover:text-pink transition">
-                    <span class="sr-only">Меню</span>
+                    <span class="sr-only">Menu</span>
                     <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -114,3 +113,4 @@
         </div><!-- /.header-inner -->
     </div><!-- /.container -->
 </header>
+@include('shared.mobile-menu')

@@ -2,8 +2,8 @@
 <div>
     <h5 class="mb-4 text-sm 2xl:text-md font-bold">{{ $filter->title() }}</h5>
     <div class="flex items-center justify-between gap-3 mb-2">
-        <span class="text-body text-xxs font-medium">От, ₽</span>
-        <span class="text-body text-xxs font-medium">До, ₽</span>
+        <span class="text-body text-xxs font-medium">From, $</span>
+        <span class="text-body text-xxs font-medium">To, $</span>
     </div>
 
     <div class="flex items-center gap-3">

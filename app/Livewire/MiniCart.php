@@ -18,7 +18,7 @@ class MiniCart extends Component
 
         cart()->add($productId, $quantity, $options);
 
-        $this->dispatch('notify', text: 'Товар ' . $product->title . ' добавлен в корзину')
+        $this->dispatch('notify', text: 'Product ' . $product->title . ' is added to cart')
             ->to(FlashLivewireMessage::class);
     }
 

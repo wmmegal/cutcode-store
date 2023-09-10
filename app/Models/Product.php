@@ -36,7 +36,7 @@ class Product extends Model
         'json_properties' => 'array'
     ];
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
@@ -44,7 +44,6 @@ class Product extends Model
             ProductJsonProperties::dispatch($product)
                                  ->delay(now()->addSeconds(5));
         });
-//        static::updated($callback);
     }
 
     public function newEloquentBuilder($query): ProductQueryBuilder

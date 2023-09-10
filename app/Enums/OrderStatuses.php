@@ -15,7 +15,7 @@ enum OrderStatuses: string
     case Paid = 'paid';
     case Cancelled = 'cancelled';
 
-    public function createState(Order $order)
+    public function createState(Order $order): PaidOrderState|NewOrderState|PendingOrderState|CancelledOrderState
     {
         return match ($this) {
             OrderStatuses::New => new NewOrderState($order),

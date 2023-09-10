@@ -31,7 +31,7 @@ class AuthController extends Controller
             ])->onlyInput('email');
         }
 
-        SessionRegenerateRunner::run();
+        $request->session()->regenerate();
 
         return redirect()->intended(route('home'));
     }

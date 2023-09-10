@@ -17,7 +17,7 @@ class PropertyFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->word()
+            'title' => ucfirst($this->faker->word())
         ];
     }
 }

@@ -9,12 +9,12 @@ use Illuminate\Support\ServiceProvider;
 
 class CatalogServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(FilterManager::class);
     }
 
-    public function boot()
+    public function boot(): void
     {
         app(FilterManager::class)->registerFilters([
             new PriceFilter(),

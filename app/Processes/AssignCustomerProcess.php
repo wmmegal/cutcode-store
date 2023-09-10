@@ -4,6 +4,7 @@ namespace App\Processes;
 
 use App\Contracts\OrderProcessContract;
 use App\Models\Order\Order;
+use App\Models\Order\OrderCustomer;
 
 class AssignCustomerProcess implements OrderProcessContract
 {

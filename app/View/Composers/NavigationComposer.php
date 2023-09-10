@@ -8,11 +8,11 @@ use Illuminate\View\View;
 
 class NavigationComposer
 {
-    public function compose(View $view)
+    public function compose(View $view): void
     {
         $menu = Menu::make()
-                    ->add(MenuItem::make(route('home'), 'Главная'))
-                    ->add(MenuItem::make(route('catalog'), 'Каталог'));
+                    ->add(MenuItem::make(route('home'), 'Home'))
+                    ->add(MenuItem::make(route('catalog'), 'Catalog'));
 
         $view->with('menu', $menu);
     }

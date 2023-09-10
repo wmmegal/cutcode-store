@@ -7,8 +7,8 @@
         <div class="container">
             <!-- Breadcrumbs -->
             <ul class="breadcrumbs flex flex-wrap gap-y-1 gap-x-4 mb-6">
-                <li><a href="{{ route('home') }}" class="text-body hover:text-pink text-xs">Главная</a></li>
-                <li><a href="{{ route('catalog') }}" class="text-body hover:text-pink text-xs">Каталог</a></li>
+                <li><a href="{{ route('home') }}" class="text-body hover:text-pink text-xs">Home</a></li>
+                <li><a href="{{ route('catalog') }}" class="text-body hover:text-pink text-xs">Catalog</a></li>
                 <li><span class="text-body text-xs">{{ $product->title }}</span></li>
             </ul>
 
@@ -44,7 +44,7 @@
                         <!-- Add to cart -->
                         <div class="space-y-8 mt-8" x-data="addToCart"
                              x-on:checked-product-in-cart.window="inCart = $event.detail[0];"
-                             x-init="productId = {{ $product->id }}; inCart = {{ cart()->inCart($product->id, $firstOptions) }}">
+                             x-init="productId = {{ $product->id }}; inCart = {{ cart()->inCart($product->id, $firstOptions) ? '1' : 'false' }}">
                             @csrf
                             <div class="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">
                                 @foreach($options as $optionLabel => $values)
@@ -103,7 +103,7 @@
 
             <!-- Description -->
             <section class="mt-12 xl:mt-16 pt-8 lg:pt-12 border-t border-white/10">
-                <h2 class="mb-12 text-lg lg:text-[42px] font-black">Описание</h2>
+                <h2 class="mb-12 text-lg lg:text-[42px] font-black">Description</h2>
                 <article class="text-xs md:text-sm">
                     {!! $product->text !!}
                 </article>

@@ -10,12 +10,12 @@
                 {{ $message }}
             </x-forms.error>
         @enderror
-        <button type="submit" class="w-full btn btn-pink">Сбросить пароль</button>
+        <button type="submit" class="w-full btn btn-pink">Reset password</button>
         <x-slot:servcieButtons>
             <div class="space-y-3 mt-5">
                 <div class="text-xxs md:text-xs">
                     <a href="{{ route('login') }}" class="text-white hover:text-white/70 font-bold">
-                        Вспомнил пароль
+                        Remembered password
                     </a>
                 </div>
             </div>

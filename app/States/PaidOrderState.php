@@ -20,6 +20,11 @@ class PaidOrderState extends OrderState
 
     public function humanValue(): string
     {
-        return 'Оплачен';
+        return 'Paid';
+    }
+
+    public function bgColor(): string
+    {
+        return 'bg-purple';
     }
 }

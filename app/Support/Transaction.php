@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Support;
+
 use Closure;
 use DB;
 use Throwable;
@@ -14,12 +15,13 @@ class Transaction
         Closure $callback,
         Closure $finished = null,
         Closure $onError = null,
-    ) {
+    )
+    {
         try {
             DB::beginTransaction();
 
             return tap($callback(), function ($result) use ($finished) {
-                if ( ! is_null($finished)) {
+                if (!is_null($finished)) {
                     $finished($result);
                 }
 
@@ -28,7 +30,7 @@ class Transaction
         } catch (Throwable $e) {
             DB::rollBack();
 
-            if ( ! is_null($onError)) {
+            if (!is_null($onError)) {
                 $onError($e);
             }
 

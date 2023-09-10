@@ -4,11 +4,10 @@ namespace App\Models\QueryBuilders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Facades\URL;
 
 class ProductQueryBuilder extends Builder
 {
-    public function onHome()
+    public function onHome(): ProductQueryBuilder
     {
         return $this->where('on_home_page', true)
                     ->orderBy('sorting')

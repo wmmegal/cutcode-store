@@ -19,7 +19,7 @@ class SessionRegenerateRunner
             $callback();
         }
 
-        event(new AfterSessionRegenerated(
+        event(new AfterSessionRegenerate(
             $old,
             session()->getId()
         ));

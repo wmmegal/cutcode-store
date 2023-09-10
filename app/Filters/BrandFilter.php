@@ -10,7 +10,7 @@ class BrandFilter extends AbstractFilter
 
     public function title(): string
     {
-        return 'Бренды';
+        return 'Brands';
     }
 
     public function key(): string

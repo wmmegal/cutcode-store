@@ -8,6 +8,7 @@ use App\Models\Order\DeliveryType;
 use App\Models\Order\PaymentMethod;
 use App\Processes\AssignCustomerProcess;
 use App\Processes\AssignProductsProcess;
+use App\Processes\CalcAmountProcess;
 use App\Processes\ChangeStateToPendingProcess;
 use App\Processes\CheckQuantityProcess;
 use App\Processes\ClearCartProcess;
@@ -28,9 +29,10 @@ class OrderController extends Controller
         }
 
         return view('order.index', [
-            'items'      => $items,
-            'payments'   => PaymentMethod::query()->get(),
-            'deliveries' => DeliveryType::query()->get()
+            'items' => $items,
+            'payments' => PaymentMethod::query()->get(),
+            'deliveries' => DeliveryType::query()->get(),
+            'customer' => auth()->user()?->customer
         ]);
     }
 
@@ -47,10 +49,11 @@ class OrderController extends Controller
             new AssignProductsProcess(),
             new ChangeStateToPendingProcess(),
             new DecreaseProductQuantitiesProcess(),
+            new CalcAmountProcess(),
             new ClearCartProcess()
         ])->run();
 
         return redirect()
-            ->route('home');
+            ->route('account.orders');
     }
 }

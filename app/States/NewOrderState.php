@@ -20,6 +20,11 @@ class NewOrderState extends OrderState
 
     public function humanValue(): string
     {
-        return 'Новый';
+        return 'New';
+    }
+
+    public function bgColor(): string
+    {
+        return 'bg-green';
     }
 }

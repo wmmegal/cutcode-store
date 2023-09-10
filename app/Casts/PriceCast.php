@@ -15,7 +15,7 @@ class PriceCast implements CastsAttributes
 
     public function set($model, string $key, $value, array $attributes): int
     {
-        if ( ! $value instanceof Price) {
+        if (!$value instanceof Price) {
             $value = Price::make($value);
         }
 

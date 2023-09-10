@@ -12,8 +12,6 @@ class CategoryViewModel
 
     public function onHome()
     {
-        return Cache::rememberForever('categories_on_home', function () {
-            return Category::onHome()->get();
-        });
+        return Category::onHome()->get();
     }
 }

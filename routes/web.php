@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CatalogViewMiddleware;
 use App\Livewire\Cart;
@@ -72,5 +73,9 @@ Route::controller(CartController::class)
 
 // Livewire
 Route::get('/cart', Cart::class)->name('cart');
+
+// My account
+Route::get('/account/orders', OrdersController::class)->name('account.orders')->middleware('auth');
+//Route::get('/account/orders/{order}', OrdersController::class)->name('account.orders')->middleware('auth');
 
 

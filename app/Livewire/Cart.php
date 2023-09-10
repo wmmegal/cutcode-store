@@ -14,7 +14,9 @@ class Cart extends Component
     public function deleteItem($itemId): void
     {
         $item = MCartItem::find($itemId);
+
         cart()->delete($item);
+
         $this->dispatch('count');
     }
 
@@ -24,6 +26,7 @@ class Cart extends Component
         return view('livewire.cart', [
             'items' => cart()->items(),
             'total' => cart()->total()
-        ]);
+        ])
+            ->title('Cart');
     }
 }

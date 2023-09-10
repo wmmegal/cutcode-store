@@ -9,7 +9,7 @@ class PriceFilter extends AbstractFilter
 
     public function title(): string
     {
-        return 'Цена';
+        return 'Price';
     }
 
     public function key(): string

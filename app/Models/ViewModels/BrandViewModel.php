@@ -12,8 +12,6 @@ class BrandViewModel
 
     public function onHome()
     {
-        return Cache::rememberForever('brands_on_home', function () {
-            return Brand::onHome()->get();
-        });
+        return  Brand::onHome()->get();
     }
 }

@@ -17,7 +17,9 @@ class CartItem extends Component
     public function updateQuantity($quantity): void
     {
         $this->item->load('optionValues.option');
+
         cart()->quantity($this->item, max($quantity, 1));
+
         $this->dispatch('count');
     }
 

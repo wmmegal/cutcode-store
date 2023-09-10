@@ -4,6 +4,7 @@ namespace App\Models\Order;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderCustomer extends Model
 {
@@ -11,11 +12,15 @@ class OrderCustomer extends Model
 
     protected $fillable = [
         'order_id',
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'phone',
         'address',
         'city'
     ];
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

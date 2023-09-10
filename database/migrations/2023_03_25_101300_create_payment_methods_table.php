@@ -19,9 +19,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::table('payment_methods')->insert(['title' => 'Наличными']);
+        DB::table('payment_methods')->insert(['title' => 'Cash']);
         DB::table('payment_methods')->insert([
-            'title' => 'Онлайн',
+            'title' => 'Stripe',
             'redirect_to_pay' => true
         ]);
     }

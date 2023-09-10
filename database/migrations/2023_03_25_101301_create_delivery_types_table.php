@@ -23,9 +23,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::table('delivery_types')->insert(['title' => 'Самовывоз']);
+        DB::table('delivery_types')->insert(['title' => 'Pickup']);
         DB::table('delivery_types')->insert([
-            'title' => 'Курьером',
+            'title' => 'By courier',
             'with_address' => true
         ]);
     }
