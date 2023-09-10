@@ -3,8 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDeleteController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CatalogViewMiddleware;
@@ -52,8 +54,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('web')->group(function () {
-    Route::get('/order', [OrderController::class, 'index'])->name('order');
-    Route::post('/order', [OrderController::class, 'handle'])->name('order.handle');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/checkout', [CheckoutController::class, 'handle'])->name('checkout.handle');
 });
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -75,7 +77,12 @@ Route::controller(CartController::class)
 Route::get('/cart', Cart::class)->name('cart');
 
 // My account
-Route::get('/account/orders', OrdersController::class)->name('account.orders')->middleware('auth');
+Route::prefix('/account')->middleware('auth')->group(function () {
+    Route::get('/orders', OrdersController::class)->name('account.orders');
+    Route::get('/orders/{order}', OrderController::class)->name('account.order');
+    Route::delete('/orders/{order}', OrderDeleteController::class)->name('account.orders.delete');
+});
+
 //Route::get('/account/orders/{order}', OrdersController::class)->name('account.orders')->middleware('auth');
 
 

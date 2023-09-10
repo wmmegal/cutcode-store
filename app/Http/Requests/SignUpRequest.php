@@ -12,7 +12,7 @@ class SignUpRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return auth()->guest();
     }
@@ -22,7 +22,7 @@ class SignUpRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required'],
