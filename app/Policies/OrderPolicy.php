@@ -11,6 +11,11 @@ class OrderPolicy
     use HandlesAuthorization;
 
 
+    public function show(User $user, Order $order): bool
+    {
+        return $user->id === $order->user_id;
+    }
+
     public function delete(User $user, Order $order): bool
     {
         return $user->id === $order->user_id;

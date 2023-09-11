@@ -30,6 +30,9 @@ return new class extends Migration
 
             $table->unsignedInteger('quantity');
 
+            $table->string('string_option_values')
+                ->nullable();
+
             $table->timestamps();
         });
 

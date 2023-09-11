@@ -4,12 +4,12 @@ namespace App\Actions;
 
 use App\Contracts\RegisterUserContract;
 use App\DTOs\NewUserDto;
-use App\Http\Requests\OrderFormRequest;
+use App\Http\Requests\CheckoutFormRequest;
 use App\Models\Order\Order;
 
 class NewOrderAction
 {
-    public function __invoke(OrderFormRequest $request): Order
+    public function __invoke(CheckoutFormRequest $request): Order
     {
         $registerAction = app(RegisterUserContract::class);
         $customer = $request->get('customer');

@@ -114,7 +114,7 @@
                 </div>
                 <div class="flex flex-col sm:flex-row lg:justify-end gap-4">
                     <a href="{{ route('catalog') }}" class="btn btn-pink">Catalog</a>
-                    <a href="{{ route('order') }}" class="btn btn-purple">Checkout</a>
+                    <a href="{{ route('checkout') }}" class="btn btn-purple">Checkout</a>
                 </div>
             </div>
         @endif

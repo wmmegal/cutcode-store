@@ -3,12 +3,14 @@
 namespace App\Models\Order;
 
 use App\Casts\PriceCast;
+use App\Models\OptionValue;
 use App\Models\Product;
 use App\ValueObjects\Price;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class OrderItem extends Model
 {
@@ -17,7 +19,8 @@ class OrderItem extends Model
     protected $fillable = [
         'product_id',
         'price',
-        'quantity'
+        'quantity',
+        'string_option_values'
     ];
 
     protected $casts = [
@@ -36,5 +39,10 @@ class OrderItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function optionValues(): BelongsToMany
+    {
+        return $this->belongsToMany(OptionValue::class, 'order_item_option_value');
     }
 }
