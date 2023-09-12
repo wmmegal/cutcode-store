@@ -14,7 +14,6 @@ use App\Processes\CheckQuantityProcess;
 use App\Processes\ClearCartProcess;
 use App\Processes\DecreaseProductQuantitiesProcess;
 use App\Processes\OrderProcess;
-use App\Processes\PaymentProcess;
 use DomainException;
 use Illuminate\Http\RedirectResponse;
 use Throwable;
@@ -43,7 +42,6 @@ class CheckoutController extends Controller
     public function handle(CheckoutFormRequest $request, NewOrderAction $action): RedirectResponse
     {
         $order = $action($request);
-        $redirect = 'account.orders';
 
         (new OrderProcess($order))->processes([
             new CheckQuantityProcess(),
@@ -58,8 +56,10 @@ class CheckoutController extends Controller
         if ($order->paymentMethod->redirect_to_pay) {
             $order->load('orderItems.product');
             $redirect = app(strtolower($order->paymentMethod->title))->handle($order);
+            return redirect($redirect);
         }
 
-        return redirect($redirect);
+        return redirect()
+            ->route('account.orders');
     }
 }

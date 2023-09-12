@@ -187,8 +187,8 @@
                                             </ul>
                                         @endif
                                     </td>
-                                    <td class="px-2 pb-3 border-b border-body/20 whitespace-nowrap">{{ $item->quantity }}
-                                        шт.
+                                    <td class="px-2 pb-3 border-b border-body/20 whitespace-nowrap">
+                                        {{ $item->quantity }}
                                     </td>
                                     <td class="px-2 pb-3 border-b border-body/20 whitespace-nowrap">{{ $item->amount }}</td>
                                 </tr>

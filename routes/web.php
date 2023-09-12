@@ -83,6 +83,4 @@ Route::prefix('/account')->middleware('auth')->group(function () {
     Route::delete('/orders/{order}', OrderDeleteController::class)->name('account.orders.delete');
 });
 
-//Route::get('/account/orders/{order}', OrdersController::class)->name('account.orders')->middleware('auth');
-
 
