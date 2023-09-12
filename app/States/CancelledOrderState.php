@@ -27,4 +27,9 @@ class CancelledOrderState extends OrderState
     {
         return 'bg-pink';
     }
+
+    public function __toString(): string
+    {
+        return 'cancelled';
+    }
 }

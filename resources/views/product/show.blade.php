@@ -17,7 +17,7 @@
 
                 <div class="basis-full lg:basis-2/5 xl:basis-2/4">
                     <div class="overflow-hidden h-auto max-h-[620px] lg:h-[480px] xl:h-[620px] rounded-3xl">
-                        <img src="{{ $product->thumbnail }}" class="object-cover w-full h-full"
+                        <img src="{{ asset('storage/' . $product->thumbnail) }}" class="object-cover w-full h-full"
                              alt="{{ $product->title }}">
                     </div>
                 </div>
@@ -33,10 +33,10 @@
                         </div>
 
                         <ul class="sm:max-w-[360px] space-y-2 mt-8">
-                            @foreach($product->properties as $property)
+                            @foreach($product->json_properties as $key => $property)
                                 <li class="flex justify-between text-body">
-                                    <strong>{{ $property->title }}:</strong>
-                                    {{ $property->pivot->value }}
+                                    <strong>{{ $key }}:</strong>
+                                    {{ $property }}
                                 </li>
                             @endforeach
                         </ul>

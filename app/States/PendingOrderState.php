@@ -28,4 +28,5 @@ class PendingOrderState extends OrderState
     {
         return 'bg-purple';
     }
+
 }

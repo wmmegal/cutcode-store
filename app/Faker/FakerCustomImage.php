@@ -4,11 +4,10 @@ namespace App\Faker;
 
 use Faker\Provider\Base;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class FakerCustomImage extends Base
 {
-    public function customImage(string $fixturesDir, string $storageDir)
+    public function customImage(string $fixturesDir, string $storageDir): string
     {
         if ( ! Storage::exists($storageDir)) {
             Storage::createDirectory($storageDir);
@@ -20,7 +19,7 @@ class FakerCustomImage extends Base
             false
         );
 
-        return '/storage/'.trim($storageDir, '/').'/'.$file;
+        return trim($storageDir, '/').'/'.$file;
     }
 
 }

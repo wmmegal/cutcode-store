@@ -3,7 +3,7 @@
         <div class="flex flex-col lg:flex-row min-w-[200px] gap-2 lg:gap-6">
             <div
                 class="shrink-0 overflow-hidden w-[64px] lg:w-[84px] h-[64px] lg:h-[84px] rounded-2xl">
-                <img src="{{ $item->product->thumbnail }}" class="object-cover w-full h-full"
+                <img src="{{ asset('storage/' . $item->product->thumbnail )}}" class="object-cover w-full h-full"
                      alt="SteelSeries Aerox 3 Snow">
             </div>
             <div class="py-3">

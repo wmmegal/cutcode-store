@@ -29,19 +29,20 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'amount' => PriceCast::class
+        'amount' => PriceCast::class,
+        'status' => OrderStatuses::class
     ];
 
     protected $attributes = [
         'status' => 'new'
     ];
 
-    public function status(): Attribute
-    {
-        return Attribute::make(
-            get: fn(string $value) => OrderStatuses::from($value)->createState($this)
-        );
-    }
+//    public function status(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn(string $value) => OrderStatuses::from($value)->createState($this),
+//        );
+//    }
 
     public function user(): BelongsTo
     {

@@ -8,6 +8,7 @@ class NewOrderState extends OrderState
         PendingOrderState::class,
         CancelledOrderState::class
     ];
+
     public function canBeChanged(): bool
     {
         return true;

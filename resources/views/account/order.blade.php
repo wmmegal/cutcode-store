@@ -14,7 +14,7 @@
         <!-- Section heading -->
         <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 mb-8">
             <h1 class="pb-4 md:pb-0 text-lg lg:text-[42px] font-black">Order # {{ $order->id }}</h1>
-            <div class="px-6 py-3 rounded-lg {{ $order->status->bgColor() }}">{{ $order->status->humanValue() }}</div>
+            <div class="px-6 py-3 rounded-lg {{ $order->status->bgColor() }}">{{ $order->status->label() }}</div>
             <div class="px-6 py-3 rounded-lg bg-card">Date: {{ $order->created_at->format('d.m.Y') }}</div>
         </div>
 
@@ -37,7 +37,7 @@
                             <div class="flex flex-col lg:flex-row min-w-[200px] gap-2 lg:gap-6">
                                 <div
                                     class="shrink-0 overflow-hidden w-[64px] lg:w-[84px] h-[64px] lg:h-[84px] rounded-2xl">
-                                    <img src="{{ $orderItem->product->thumbnail }}" class="object-cover w-full h-full"
+                                    <img src="{{ asset('storage/' . $orderItem->product->thumbnail )}}" class="object-cover w-full h-full"
                                          alt="{{ $orderItem->product->title }}">
                                 </div>
                                 <div class="py-3">

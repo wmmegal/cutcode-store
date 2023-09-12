@@ -11,7 +11,7 @@ class ChangeStateToPendingProcess implements OrderProcessContract
 
     public function handle(Order $order, $next)
     {
-        $order->status->transitionTo(new PendingOrderState($order));
+        $order->status = 'pending';
 
         return $next($order);
     }

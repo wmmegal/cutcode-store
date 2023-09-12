@@ -25,12 +25,12 @@
                             <div class="grow py-2">
                                 <div class="flex flex-col md:flex-row md:items-center gap-2">
                                     <h4 class="pr-3 text-md font-bold">
-                                        <a href="orders-item.html"
+                                        <a href="{{ route('account.order', $order) }}"
                                            class="inline-block text-white hover:text-pink">
                                             Order №{{ $order->id }}
                                         </a>
                                     </h4>
-                                    <div class="px-3 py-1 rounded-md {{ $order->status->bgColor() }} text-xxs">{{ $order->status->humanValue() }}</div>
+                                    <div class="px-3 py-1 rounded-md {{ $order->status->bgColor() }} text-xxs">{{ $order->status->label() }}</div>
                                     <div class="px-3 py-1 rounded-md bg-white/10 text-xxs">{{ $order->created_at->format('d.m.Y') }}</div>
                                 </div>
                                 <div class="mt-3 text-body text-xs">Total: {{ $order->amount }}</div>

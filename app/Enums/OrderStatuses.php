@@ -15,13 +15,26 @@ enum OrderStatuses: string
     case Paid = 'paid';
     case Cancelled = 'cancelled';
 
-    public function createState(Order $order): PaidOrderState|NewOrderState|PendingOrderState|CancelledOrderState
+    public function label()
+    {
+        return ucfirst($this->value);
+    }
+
+    public function bgColor(): string
     {
         return match ($this) {
-            OrderStatuses::New => new NewOrderState($order),
-            OrderStatuses::Pending => new PendingOrderState($order),
-            OrderStatuses::Paid => new PaidOrderState($order),
-            OrderStatuses::Cancelled => new CancelledOrderState($order),
+            self::Paid, self::Pending, self::New => 'bg-purple',
+            self::Cancelled => 'bg-pink',
         };
     }
+
+//    public function createState(Order $order): PaidOrderState|NewOrderState|PendingOrderState|CancelledOrderState
+//    {
+//        return match ($this) {
+//            OrderStatuses::New => new NewOrderState($order),
+//            OrderStatuses::Pending => new PendingOrderState($order),
+//            OrderStatuses::Paid => new PaidOrderState($order),
+//            OrderStatuses::Cancelled => new CancelledOrderState($order),
+//        };
+//    }
 }
