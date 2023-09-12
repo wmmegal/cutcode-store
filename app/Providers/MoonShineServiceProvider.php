@@ -7,6 +7,7 @@ use App\MoonShine\Resources\CategoryResource;
 use App\MoonShine\Resources\OptionResource;
 use App\MoonShine\Resources\OrderResource;
 use App\MoonShine\Resources\ProductResource;
+use App\MoonShine\Resources\SeoResource;
 use Illuminate\Support\ServiceProvider;
 use MoonShine\MoonShine;
 use MoonShine\Menu\MenuGroup;
@@ -33,6 +34,7 @@ class MoonShineServiceProvider extends ServiceProvider
             MenuItem::make('Options', OptionResource::class),
             MenuItem::make('Products', ProductResource::class),
             MenuItem::make('Orders', OrderResource::class),
+            MenuItem::make('Seo', SeoResource::class),
         ]);
     }
 }

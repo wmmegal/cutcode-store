@@ -12,6 +12,7 @@
         "laravel/socialite": "^5.6",
         "laravel/telescope": "^4.12",
         "laravel/tinker": "^2.7",
+        "lee-to/laravel-seo-by-url": "^0.10.2",
         "livewire/livewire": "^3.0",
         "moonshine/moonshine": "^1.62",
         "sentry/sentry-laravel": "^3.2",

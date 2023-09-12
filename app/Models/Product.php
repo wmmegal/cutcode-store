@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Casts\PriceCast;
 use App\Jobs\ProductJsonProperties;
 use App\Models\QueryBuilders\ProductQueryBuilder;
+use App\Support\Traits\Models\AddSeoData;
 use App\Support\Traits\Models\HasSlug;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,7 @@ class Product extends Model
 {
     use HasFactory;
     use HasSlug;
+    use AddSeoData;
 
     protected $fillable = [
         'title',
