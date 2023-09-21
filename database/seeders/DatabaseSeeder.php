@@ -19,8 +19,11 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run(): void
+    public function run()
     {
+        Storage::createDirectory('public/images/brands');
+        Storage::createDirectory('public/images/products');
+
         Brand::factory(20)->create();
         Option::factory(2)->create();
 
