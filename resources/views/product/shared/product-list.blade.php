@@ -2,7 +2,7 @@
 <div class="product-card flex flex-col md:flex-row rounded-3xl bg-card">
     <a href="{{ route('product', $item->slug ) }}"
        class="product-card-photo overflow-hidden shrink-0 md:w-[260px] xl:w-[320px] h-[320px] md:h-full rounded-3xl">
-        <img src="{{ $item->thumbnail }}" class="object-cover w-full h-full" alt="{{ $item->title }}">
+        <img src="{{ asset('storage/' . $item->thumbnail) }}" class="object-cover w-full h-full" alt="{{ $item->title }}">
     </a>
     <div class="grow flex flex-col py-8 px-6 md:px-8">
         <h3 class="text-sm lg:text-md font-black">
