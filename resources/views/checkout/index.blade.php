@@ -59,7 +59,7 @@
                             <x-forms.input
                                 name="customer[phone]"
                                 type="text"
-                                placeholder="Телефон"
+                                placeholder="Phone"
                                 value="{{ old('customer.phone') }}"
                                 :isError="$errors->has('customer.phone')"
                             >
