@@ -15,7 +15,7 @@ class FakerCustomImage extends Base
 
         $file = $this->generator->file(
             base_path("tests/Fixtures/images/$fixturesDir"),
-            Storage::path($storageDir),
+            Storage::disk('public')->path($storageDir),
             false
         );
 
