@@ -16,11 +16,11 @@
         "livewire/livewire": "^3.0",
         "moonshine/moonshine": "^1.62",
         "sentry/sentry-laravel": "^3.2",
-        "stripe/stripe-php": "^12.2"
+        "stripe/stripe-php": "^12.2",
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
-        "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",

@@ -9,7 +9,7 @@ class FakerCustomImage extends Base
 {
     public function customImage(string $fixturesDir, string $storageDir): string
     {
-        if ( ! Storage::exists($storageDir)) {
+        if (!Storage::exists($storageDir)) {
             Storage::createDirectory($storageDir);
         }
 
@@ -19,7 +19,7 @@ class FakerCustomImage extends Base
             false
         );
 
-        return trim($storageDir, '/').'/'.$file;
+        return trim($storageDir, '/') . '/' . $file;
     }
 
 }

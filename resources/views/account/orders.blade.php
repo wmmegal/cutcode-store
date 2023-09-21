@@ -40,6 +40,7 @@
                     <div class="py-4">
                         <div class="flex items-center gap-4">
                             <a href="{{ route('account.order', $order) }}" class="!h-14 btn btn-purple">More</a>
+                            <a href="{{ route('account.order', $order) }}" class="!h-14 btn btn-purple">More</a>
                             <form action="{{ route('account.orders.delete', $order) }}" method="post">
                                 @csrf
                                 @method('DELETE')
