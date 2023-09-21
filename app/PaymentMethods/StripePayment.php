@@ -33,6 +33,9 @@ class StripePayment
             'mode' => 'payment',
             'success_url' => route('account.orders'),
             'cancel_url' => route('account.orders'),
+            'metadata' => [
+                'order_id' => $order->id
+            ]
         ]);
 
         return $checkoutSession->url;

@@ -9,6 +9,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDeleteController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StripeWebhookController;
 use App\Http\Middleware\CatalogViewMiddleware;
 use App\Livewire\Cart;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -82,5 +83,8 @@ Route::prefix('/account')->middleware('auth')->group(function () {
     Route::get('/orders/{order}', OrderController::class)->name('account.order');
     Route::delete('/orders/{order}', OrderDeleteController::class)->name('account.orders.delete');
 });
+
+//Stripe
+Route::post('/webhooks/stripe', StripeWebhookController::class)->name('webhooks.stripe');
 
 
